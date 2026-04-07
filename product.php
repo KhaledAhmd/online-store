@@ -1,12 +1,19 @@
 <?php
-include("config/db.php");
+include("./config/db.php");
 include("includes/header.php");
 include("includes/navbar.php");
 
-$id = $_GET['id'];
-$result = mysqli_query($conn, "SELECT * FROM products WHERE id=$id");
-$product = mysqli_fetch_assoc($result);
+if(isset($_GET['id'])){
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->execute([$_GET['id']]);
+}else{
+    $stmt = $pdo->query("SELECT * FROM products ORDER BY id DESC LIMIT 1");
+}
+
+$product = $stmt->fetch();
 ?>
+
+
 
 <style>
 .product-img {

@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("config/db.php");
-include("includes/header.php");
-include("includes/navbar.php");
+include("./config/db.php");
+include("./includes/header.php");
+include("./includes/navbar.php");
 ?>
 
 <div class="container mt-5">
@@ -18,8 +18,11 @@ $total = 0;
 
 foreach($_SESSION['cart'] ?? [] as $index => $item){
 
-$res = mysqli_query($conn, "SELECT * FROM products WHERE id=".$item['id']);
-$p = mysqli_fetch_assoc($res);
+$stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+$stmt->execute([$item['id']]);
+$p = $stmt->fetch();
+
+if(!$p) continue;
 
 $subtotal = $p['price'] * $item['qty'];
 $total += $subtotal;
@@ -44,4 +47,4 @@ $total += $subtotal;
 
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php include("./includes/footer.php"); ?>

@@ -1,7 +1,6 @@
-
-<?php include("config/db.php");?>
-<?php include("includes/header.php"); ?>
-<?php include("includes/navbar.php"); ?>
+<?php include("./config/db.php");?>
+<?php include("./includes/header.php"); ?>
+<?php include("./includes/navbar.php"); ?>
 
 <section class="hero">
   <div class="hero-content">
@@ -18,9 +17,9 @@
 <div class="row" id="products">
 
 <?php
-$result = mysqli_query($conn, "SELECT * FROM products");
+$stmt = $pdo->query("SELECT * FROM products");
+while($row = $stmt->fetch()) {
 
-while($row = mysqli_fetch_assoc($result)) {
 ?>
 
 <div class="col-md-4  mb-3 product-item">
@@ -40,4 +39,4 @@ while($row = mysqli_fetch_assoc($result)) {
 
 </div>
 </section>
-<?php include("includes/footer.php"); ?>
+<?php include("./includes/footer.php"); ?>

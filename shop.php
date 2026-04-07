@@ -1,11 +1,10 @@
 <?php
-include("config/db.php");
+include("./config/db.php");
 include("includes/header.php");
 include("includes/navbar.php");
 ?>
 
 <div class="container pt-5">
-
 
 <h2 class="text-center my-4">Our Products 🔥</h2>
 
@@ -14,9 +13,9 @@ include("includes/navbar.php");
 <div class="row" id="products">
 
 <?php
-$result = mysqli_query($conn, "SELECT * FROM products");
+$stmt = $pdo->query("SELECT * FROM products");
 
-while($row = mysqli_fetch_assoc($result)) {
+while($row = $stmt->fetch()) {
 ?>
 
 <div class="col-md-4 mb-3 product-item">
